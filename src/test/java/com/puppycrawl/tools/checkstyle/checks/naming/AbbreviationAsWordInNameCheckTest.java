@@ -454,6 +454,27 @@ public class AbbreviationAsWordInNameCheckTest extends AbstractModuleTestSupport
                 expected);
     }
 
+    @Test
+    public void testAbbreviationAsWordInNameWithOneLetterWords() throws Exception {
+        final int expectedCapitalCount = 1; // no more than 2 consecutive letters
+
+        final String[] expected = {
+            "48:15: " + getWarningMessage("AbstractBInnerClass", expectedCapitalCount),
+            "53:15: " + getWarningMessage("WellNamedAAAFactory", expectedCapitalCount),
+            "54:25: " + getWarningMessage("marazmaticMethoDName", expectedCapitalCount),
+            "82:16: " + getWarningMessage("VALUEEEE", expectedCapitalCount),
+            "88:23: " + getWarningMessage("VALUEEEE", expectedCapitalCount),
+            "94:22: " + getWarningMessage("VALUEEEE", expectedCapitalCount),
+            "100:29: " + getWarningMessage("VALUEEEE", expectedCapitalCount),
+            "138:17: " + getWarningMessage("InnerClassOneVIOLATION", expectedCapitalCount),
+            "142:18: " + getWarningMessage("InnerClassTwoVIOLATION", expectedCapitalCount),
+            "146:24: " + getWarningMessage("InnerClassThreeVIOLATION", expectedCapitalCount),
+        };
+
+        verifyWithInlineConfigParser(
+                getPath("InputAbbreviationAsWordInNameLengthOneWords.Java"), expected);
+    }
+
     private String getWarningMessage(String typeName, int expectedCapitalCount) {
         return getCheckMessage(MSG_KEY, typeName, expectedCapitalCount);
     }
